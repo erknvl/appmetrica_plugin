@@ -13,6 +13,7 @@ import 'package:flutter/widgets.dart';
 import 'package:logging/logging.dart';
 
 import 'activation_config_holder.dart';
+import 'ad_revenue.dart';
 import 'appmetrica_config.dart';
 import 'common_utils.dart';
 import 'device_id_result.dart';
@@ -252,6 +253,10 @@ class AppMetrica {
   /// Sends a message about an e-commerce event.
   static Future<void> reportECommerce(ECommerceEvent event) =>
       _appMetrica.reportECommerce(event.toPigeon());
+
+  /// Sends information about ad revenue.
+  static Future<void> reportAdRevenue(AdRevenue adRevenue) =>
+      _appMetrica.reportAdRevenue(adRevenue.toPigeon());
 }
 
 var _crashHandlingActivated = false;

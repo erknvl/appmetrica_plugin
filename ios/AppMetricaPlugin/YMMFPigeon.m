@@ -115,6 +115,10 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
 + (YMMFUserProfilePigeon *)fromMap:(NSDictionary *)dict;
 - (NSDictionary *)toMap;
 @end
+@interface YMMFAdRevenuePigeon ()
++ (YMMFAdRevenuePigeon *)fromMap:(NSDictionary *)dict;
+- (NSDictionary *)toMap;
+@end
 @interface YMMFReporterConfigPigeon ()
 + (YMMFReporterConfigPigeon *)fromMap:(NSDictionary *)dict;
 - (NSDictionary *)toMap;
@@ -953,6 +957,68 @@ static id GetNullableObjectAtIndex(NSArray* array, NSInteger key) {
 }
 @end
 
+@implementation YMMFAdRevenuePigeon
++ (instancetype)makeWithAdRevenue:(NSString *)adRevenue
+    currency:(NSString *)currency
+    adType:(YMMFAdTypePigeon)adType
+    adNetwork:(nullable NSString *)adNetwork
+    adUnitId:(nullable NSString *)adUnitId
+    adUnitName:(nullable NSString *)adUnitName
+    adPlacementId:(nullable NSString *)adPlacementId
+    adPlacementName:(nullable NSString *)adPlacementName
+    precision:(nullable NSString *)precision
+    payload:(nullable NSDictionary<NSString *, NSString *> *)payload {
+  YMMFAdRevenuePigeon* pigeonResult = [[YMMFAdRevenuePigeon alloc] init];
+  pigeonResult.adRevenue = adRevenue;
+  pigeonResult.currency = currency;
+  pigeonResult.adType = adType;
+  pigeonResult.adNetwork = adNetwork;
+  pigeonResult.adUnitId = adUnitId;
+  pigeonResult.adUnitName = adUnitName;
+  pigeonResult.adPlacementId = adPlacementId;
+  pigeonResult.adPlacementName = adPlacementName;
+  pigeonResult.precision = precision;
+  pigeonResult.payload = payload;
+  return pigeonResult;
+}
++ (YMMFAdRevenuePigeon *)fromMap:(NSDictionary *)dict {
+  // begin of patch
+  // CAUTION: this is vary important patch that will return nil object in case of nil dictionary
+  if (dict == nil) {
+    return nil;
+  }
+  // end of patch
+  YMMFAdRevenuePigeon *pigeonResult = [[YMMFAdRevenuePigeon alloc] init];
+  pigeonResult.adRevenue = GetNullableObject(dict, @"adRevenue");
+  NSAssert(pigeonResult.adRevenue != nil, @"");
+  pigeonResult.currency = GetNullableObject(dict, @"currency");
+  NSAssert(pigeonResult.currency != nil, @"");
+  pigeonResult.adType = [GetNullableObject(dict, @"adType") integerValue];
+  pigeonResult.adNetwork = GetNullableObject(dict, @"adNetwork");
+  pigeonResult.adUnitId = GetNullableObject(dict, @"adUnitId");
+  pigeonResult.adUnitName = GetNullableObject(dict, @"adUnitName");
+  pigeonResult.adPlacementId = GetNullableObject(dict, @"adPlacementId");
+  pigeonResult.adPlacementName = GetNullableObject(dict, @"adPlacementName");
+  pigeonResult.precision = GetNullableObject(dict, @"precision");
+  pigeonResult.payload = GetNullableObject(dict, @"payload");
+  return pigeonResult;
+}
+- (NSDictionary *)toMap {
+  return @{
+    @"adRevenue" : (self.adRevenue ?: [NSNull null]),
+    @"currency" : (self.currency ?: [NSNull null]),
+    @"adType" : @(self.adType),
+    @"adNetwork" : (self.adNetwork ?: [NSNull null]),
+    @"adUnitId" : (self.adUnitId ?: [NSNull null]),
+    @"adUnitName" : (self.adUnitName ?: [NSNull null]),
+    @"adPlacementId" : (self.adPlacementId ?: [NSNull null]),
+    @"adPlacementName" : (self.adPlacementName ?: [NSNull null]),
+    @"precision" : (self.precision ?: [NSNull null]),
+    @"payload" : (self.payload ?: [NSNull null]),
+  };
+}
+@end
+
 @implementation YMMFReporterConfigPigeon
 + (instancetype)makeWithApiKey:(NSString *)apiKey
     sessionTimeout:(nullable NSNumber *)sessionTimeout
@@ -1094,81 +1160,84 @@ void YMMFAppMetricaConfigConverterPigeonSetup(id<FlutterBinaryMessenger> binaryM
 {
   switch (type) {
     case 128:     
-      return [YMMFAppMetricaConfigPigeon fromMap:[self readValue]];
+      return [YMMFAdRevenuePigeon fromMap:[self readValue]];
     
     case 129:     
-      return [YMMFAppMetricaDeferredDeeplinkErrorPigeon fromMap:[self readValue]];
+      return [YMMFAppMetricaConfigPigeon fromMap:[self readValue]];
     
     case 130:     
-      return [YMMFAppMetricaDeferredDeeplinkParametersPigeon fromMap:[self readValue]];
+      return [YMMFAppMetricaDeferredDeeplinkErrorPigeon fromMap:[self readValue]];
     
     case 131:     
-      return [YMMFAppMetricaDeferredDeeplinkPigeon fromMap:[self readValue]];
+      return [YMMFAppMetricaDeferredDeeplinkParametersPigeon fromMap:[self readValue]];
     
     case 132:     
-      return [YMMFAppMetricaDeviceIdPigeon fromMap:[self readValue]];
+      return [YMMFAppMetricaDeferredDeeplinkPigeon fromMap:[self readValue]];
     
     case 133:     
-      return [YMMFECommerceAmountPigeon fromMap:[self readValue]];
+      return [YMMFAppMetricaDeviceIdPigeon fromMap:[self readValue]];
     
     case 134:     
       return [YMMFECommerceAmountPigeon fromMap:[self readValue]];
     
     case 135:     
-      return [YMMFECommerceCartItemPigeon fromMap:[self readValue]];
+      return [YMMFECommerceAmountPigeon fromMap:[self readValue]];
     
     case 136:     
-      return [YMMFECommerceEventPigeon fromMap:[self readValue]];
+      return [YMMFECommerceCartItemPigeon fromMap:[self readValue]];
     
     case 137:     
-      return [YMMFECommerceOrderPigeon fromMap:[self readValue]];
+      return [YMMFECommerceEventPigeon fromMap:[self readValue]];
     
     case 138:     
-      return [YMMFECommercePricePigeon fromMap:[self readValue]];
+      return [YMMFECommerceOrderPigeon fromMap:[self readValue]];
     
     case 139:     
       return [YMMFECommercePricePigeon fromMap:[self readValue]];
     
     case 140:     
-      return [YMMFECommerceProductPigeon fromMap:[self readValue]];
+      return [YMMFECommercePricePigeon fromMap:[self readValue]];
     
     case 141:     
       return [YMMFECommerceProductPigeon fromMap:[self readValue]];
     
     case 142:     
-      return [YMMFECommerceReferrerPigeon fromMap:[self readValue]];
+      return [YMMFECommerceProductPigeon fromMap:[self readValue]];
     
     case 143:     
-      return [YMMFECommerceScreenPigeon fromMap:[self readValue]];
+      return [YMMFECommerceReferrerPigeon fromMap:[self readValue]];
     
     case 144:     
-      return [YMMFErrorDetailsPigeon fromMap:[self readValue]];
+      return [YMMFECommerceScreenPigeon fromMap:[self readValue]];
     
     case 145:     
       return [YMMFErrorDetailsPigeon fromMap:[self readValue]];
     
     case 146:     
-      return [YMMFLocationPigeon fromMap:[self readValue]];
+      return [YMMFErrorDetailsPigeon fromMap:[self readValue]];
     
     case 147:     
-      return [YMMFPreloadInfoPigeon fromMap:[self readValue]];
+      return [YMMFLocationPigeon fromMap:[self readValue]];
     
     case 148:     
-      return [YMMFReceiptPigeon fromMap:[self readValue]];
+      return [YMMFPreloadInfoPigeon fromMap:[self readValue]];
     
     case 149:     
-      return [YMMFReporterConfigPigeon fromMap:[self readValue]];
+      return [YMMFReceiptPigeon fromMap:[self readValue]];
     
     case 150:     
-      return [YMMFRevenuePigeon fromMap:[self readValue]];
+      return [YMMFReporterConfigPigeon fromMap:[self readValue]];
     
     case 151:     
-      return [YMMFStackTraceElementPigeon fromMap:[self readValue]];
+      return [YMMFRevenuePigeon fromMap:[self readValue]];
     
     case 152:     
-      return [YMMFUserProfileAttributePigeon fromMap:[self readValue]];
+      return [YMMFStackTraceElementPigeon fromMap:[self readValue]];
     
     case 153:     
+      return [YMMFUserProfileAttributePigeon fromMap:[self readValue]];
+    
+    case 154:     
       return [YMMFUserProfilePigeon fromMap:[self readValue]];
     
     default:    
@@ -1183,27 +1252,27 @@ void YMMFAppMetricaConfigConverterPigeonSetup(id<FlutterBinaryMessenger> binaryM
 @implementation YMMFAppMetricaPigeonCodecWriter
 - (void)writeValue:(id)value 
 {
-  if ([value isKindOfClass:[YMMFAppMetricaConfigPigeon class]]) {
+  if ([value isKindOfClass:[YMMFAdRevenuePigeon class]]) {
     [self writeByte:128];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFAppMetricaDeferredDeeplinkErrorPigeon class]]) {
+  if ([value isKindOfClass:[YMMFAppMetricaConfigPigeon class]]) {
     [self writeByte:129];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFAppMetricaDeferredDeeplinkParametersPigeon class]]) {
+  if ([value isKindOfClass:[YMMFAppMetricaDeferredDeeplinkErrorPigeon class]]) {
     [self writeByte:130];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFAppMetricaDeferredDeeplinkPigeon class]]) {
+  if ([value isKindOfClass:[YMMFAppMetricaDeferredDeeplinkParametersPigeon class]]) {
     [self writeByte:131];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFAppMetricaDeviceIdPigeon class]]) {
+  if ([value isKindOfClass:[YMMFAppMetricaDeferredDeeplinkPigeon class]]) {
     [self writeByte:132];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceAmountPigeon class]]) {
+  if ([value isKindOfClass:[YMMFAppMetricaDeviceIdPigeon class]]) {
     [self writeByte:133];
     [self writeValue:[value toMap]];
   } else 
@@ -1211,19 +1280,19 @@ void YMMFAppMetricaConfigConverterPigeonSetup(id<FlutterBinaryMessenger> binaryM
     [self writeByte:134];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceCartItemPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceAmountPigeon class]]) {
     [self writeByte:135];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceEventPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceCartItemPigeon class]]) {
     [self writeByte:136];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceOrderPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceEventPigeon class]]) {
     [self writeByte:137];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommercePricePigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceOrderPigeon class]]) {
     [self writeByte:138];
     [self writeValue:[value toMap]];
   } else 
@@ -1231,7 +1300,7 @@ void YMMFAppMetricaConfigConverterPigeonSetup(id<FlutterBinaryMessenger> binaryM
     [self writeByte:139];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceProductPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommercePricePigeon class]]) {
     [self writeByte:140];
     [self writeValue:[value toMap]];
   } else 
@@ -1239,15 +1308,15 @@ void YMMFAppMetricaConfigConverterPigeonSetup(id<FlutterBinaryMessenger> binaryM
     [self writeByte:141];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceReferrerPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceProductPigeon class]]) {
     [self writeByte:142];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceScreenPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceReferrerPigeon class]]) {
     [self writeByte:143];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFErrorDetailsPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceScreenPigeon class]]) {
     [self writeByte:144];
     [self writeValue:[value toMap]];
   } else 
@@ -1255,36 +1324,40 @@ void YMMFAppMetricaConfigConverterPigeonSetup(id<FlutterBinaryMessenger> binaryM
     [self writeByte:145];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFLocationPigeon class]]) {
+  if ([value isKindOfClass:[YMMFErrorDetailsPigeon class]]) {
     [self writeByte:146];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFPreloadInfoPigeon class]]) {
+  if ([value isKindOfClass:[YMMFLocationPigeon class]]) {
     [self writeByte:147];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFReceiptPigeon class]]) {
+  if ([value isKindOfClass:[YMMFPreloadInfoPigeon class]]) {
     [self writeByte:148];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFReporterConfigPigeon class]]) {
+  if ([value isKindOfClass:[YMMFReceiptPigeon class]]) {
     [self writeByte:149];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFRevenuePigeon class]]) {
+  if ([value isKindOfClass:[YMMFReporterConfigPigeon class]]) {
     [self writeByte:150];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFStackTraceElementPigeon class]]) {
+  if ([value isKindOfClass:[YMMFRevenuePigeon class]]) {
     [self writeByte:151];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFUserProfileAttributePigeon class]]) {
+  if ([value isKindOfClass:[YMMFStackTraceElementPigeon class]]) {
     [self writeByte:152];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFUserProfilePigeon class]]) {
+  if ([value isKindOfClass:[YMMFUserProfileAttributePigeon class]]) {
     [self writeByte:153];
+    [self writeValue:[value toMap]];
+  } else 
+  if ([value isKindOfClass:[YMMFUserProfilePigeon class]]) {
+    [self writeByte:154];
     [self writeValue:[value toMap]];
   } else 
 {
@@ -1843,6 +1916,26 @@ void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObj
       [channel setMessageHandler:nil];
     }
   }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.AppMetricaPigeon.reportAdRevenue"
+        binaryMessenger:binaryMessenger
+        codec:YMMFAppMetricaPigeonGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(reportAdRevenueAdRevenue:error:)], @"YMMFAppMetricaPigeon api (%@) doesn't respond to @selector(reportAdRevenueAdRevenue:error:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        YMMFAdRevenuePigeon *arg_adRevenue = GetNullableObjectAtIndex(args, 0);
+        FlutterError *error;
+        [api reportAdRevenueAdRevenue:arg_adRevenue error:&error];
+        callback(wrapResult(nil, error));
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
 }
 @interface YMMFReporterPigeonCodecReader : FlutterStandardReader
 @end
@@ -1851,57 +1944,60 @@ void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObj
 {
   switch (type) {
     case 128:     
-      return [YMMFECommerceAmountPigeon fromMap:[self readValue]];
+      return [YMMFAdRevenuePigeon fromMap:[self readValue]];
     
     case 129:     
       return [YMMFECommerceAmountPigeon fromMap:[self readValue]];
     
     case 130:     
-      return [YMMFECommerceCartItemPigeon fromMap:[self readValue]];
+      return [YMMFECommerceAmountPigeon fromMap:[self readValue]];
     
     case 131:     
-      return [YMMFECommerceEventPigeon fromMap:[self readValue]];
+      return [YMMFECommerceCartItemPigeon fromMap:[self readValue]];
     
     case 132:     
-      return [YMMFECommerceOrderPigeon fromMap:[self readValue]];
+      return [YMMFECommerceEventPigeon fromMap:[self readValue]];
     
     case 133:     
-      return [YMMFECommercePricePigeon fromMap:[self readValue]];
+      return [YMMFECommerceOrderPigeon fromMap:[self readValue]];
     
     case 134:     
       return [YMMFECommercePricePigeon fromMap:[self readValue]];
     
     case 135:     
-      return [YMMFECommerceProductPigeon fromMap:[self readValue]];
+      return [YMMFECommercePricePigeon fromMap:[self readValue]];
     
     case 136:     
       return [YMMFECommerceProductPigeon fromMap:[self readValue]];
     
     case 137:     
-      return [YMMFECommerceReferrerPigeon fromMap:[self readValue]];
+      return [YMMFECommerceProductPigeon fromMap:[self readValue]];
     
     case 138:     
-      return [YMMFECommerceScreenPigeon fromMap:[self readValue]];
+      return [YMMFECommerceReferrerPigeon fromMap:[self readValue]];
     
     case 139:     
-      return [YMMFErrorDetailsPigeon fromMap:[self readValue]];
+      return [YMMFECommerceScreenPigeon fromMap:[self readValue]];
     
     case 140:     
       return [YMMFErrorDetailsPigeon fromMap:[self readValue]];
     
     case 141:     
-      return [YMMFReceiptPigeon fromMap:[self readValue]];
+      return [YMMFErrorDetailsPigeon fromMap:[self readValue]];
     
     case 142:     
-      return [YMMFRevenuePigeon fromMap:[self readValue]];
+      return [YMMFReceiptPigeon fromMap:[self readValue]];
     
     case 143:     
-      return [YMMFStackTraceElementPigeon fromMap:[self readValue]];
+      return [YMMFRevenuePigeon fromMap:[self readValue]];
     
     case 144:     
-      return [YMMFUserProfileAttributePigeon fromMap:[self readValue]];
+      return [YMMFStackTraceElementPigeon fromMap:[self readValue]];
     
     case 145:     
+      return [YMMFUserProfileAttributePigeon fromMap:[self readValue]];
+    
+    case 146:     
       return [YMMFUserProfilePigeon fromMap:[self readValue]];
     
     default:    
@@ -1916,7 +2012,7 @@ void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObj
 @implementation YMMFReporterPigeonCodecWriter
 - (void)writeValue:(id)value 
 {
-  if ([value isKindOfClass:[YMMFECommerceAmountPigeon class]]) {
+  if ([value isKindOfClass:[YMMFAdRevenuePigeon class]]) {
     [self writeByte:128];
     [self writeValue:[value toMap]];
   } else 
@@ -1924,19 +2020,19 @@ void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObj
     [self writeByte:129];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceCartItemPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceAmountPigeon class]]) {
     [self writeByte:130];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceEventPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceCartItemPigeon class]]) {
     [self writeByte:131];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceOrderPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceEventPigeon class]]) {
     [self writeByte:132];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommercePricePigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceOrderPigeon class]]) {
     [self writeByte:133];
     [self writeValue:[value toMap]];
   } else 
@@ -1944,7 +2040,7 @@ void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObj
     [self writeByte:134];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceProductPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommercePricePigeon class]]) {
     [self writeByte:135];
     [self writeValue:[value toMap]];
   } else 
@@ -1952,15 +2048,15 @@ void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObj
     [self writeByte:136];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceReferrerPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceProductPigeon class]]) {
     [self writeByte:137];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFECommerceScreenPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceReferrerPigeon class]]) {
     [self writeByte:138];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFErrorDetailsPigeon class]]) {
+  if ([value isKindOfClass:[YMMFECommerceScreenPigeon class]]) {
     [self writeByte:139];
     [self writeValue:[value toMap]];
   } else 
@@ -1968,24 +2064,28 @@ void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObj
     [self writeByte:140];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFReceiptPigeon class]]) {
+  if ([value isKindOfClass:[YMMFErrorDetailsPigeon class]]) {
     [self writeByte:141];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFRevenuePigeon class]]) {
+  if ([value isKindOfClass:[YMMFReceiptPigeon class]]) {
     [self writeByte:142];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFStackTraceElementPigeon class]]) {
+  if ([value isKindOfClass:[YMMFRevenuePigeon class]]) {
     [self writeByte:143];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFUserProfileAttributePigeon class]]) {
+  if ([value isKindOfClass:[YMMFStackTraceElementPigeon class]]) {
     [self writeByte:144];
     [self writeValue:[value toMap]];
   } else 
-  if ([value isKindOfClass:[YMMFUserProfilePigeon class]]) {
+  if ([value isKindOfClass:[YMMFUserProfileAttributePigeon class]]) {
     [self writeByte:145];
+    [self writeValue:[value toMap]];
+  } else 
+  if ([value isKindOfClass:[YMMFUserProfilePigeon class]]) {
+    [self writeByte:146];
     [self writeValue:[value toMap]];
   } else 
 {
@@ -2284,6 +2384,27 @@ void YMMFReporterPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObjec
         YMMFECommerceEventPigeon *arg_event = GetNullableObjectAtIndex(args, 1);
         FlutterError *error;
         [api reportECommerceApiKey:arg_apiKey event:arg_event error:&error];
+        callback(wrapResult(nil, error));
+      }];
+    }
+    else {
+      [channel setMessageHandler:nil];
+    }
+  }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.ReporterPigeon.reportAdRevenue"
+        binaryMessenger:binaryMessenger
+        codec:YMMFReporterPigeonGetCodec()        ];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(reportAdRevenueApiKey:adRevenue:error:)], @"YMMFReporterPigeon api (%@) doesn't respond to @selector(reportAdRevenueApiKey:adRevenue:error:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        NSString *arg_apiKey = GetNullableObjectAtIndex(args, 0);
+        YMMFAdRevenuePigeon *arg_adRevenue = GetNullableObjectAtIndex(args, 1);
+        FlutterError *error;
+        [api reportAdRevenueApiKey:arg_apiKey adRevenue:arg_adRevenue error:&error];
         callback(wrapResult(nil, error));
       }];
     }

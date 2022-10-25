@@ -102,3 +102,28 @@ extension ConfigConverter on AppMetricaConfig {
       userProfileID: userProfileID,
       revenueAutoTracking: revenueAutoTracking);
 }
+
+final adTypeToPigeon = {
+  AdType.UNKNOWN: AdTypePigeon.UNKNOWN,
+  AdType.NATIVE: AdTypePigeon.NATIVE,
+  AdType.BANNER: AdTypePigeon.BANNER,
+  AdType.REWARDED: AdTypePigeon.REWARDED,
+  AdType.INTERSTITIAL: AdTypePigeon.INTERSTITIAL,
+  AdType.MREC: AdTypePigeon.MREC,
+  AdType.OTHER: AdTypePigeon.OTHER,
+};
+
+extension AdRevenueConverter on AdRevenue {
+  AdRevenuePigeon toPigeon() => AdRevenuePigeon(
+        adRevenue: adRevenue.toString(),
+        currency: currency,
+        adType: adTypeToPigeon[adType],
+        adNetwork: adNetwork,
+        adUnitId: adUnitId,
+        adUnitName: adUnitName,
+        adPlacementId: adPlacementId,
+        adPlacementName: adPlacementName,
+        precision: precision,
+        payload: payload,
+      );
+}

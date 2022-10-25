@@ -220,4 +220,8 @@ class AppMetricaImplementation(private val context: Context): Pigeon.AppMetricaP
     override fun setStatisticsSending(enabled: Boolean) {
         YandexMetrica.setStatisticsSending(context, enabled)
     }
+
+    override fun reportAdRevenue(adRevenue: Pigeon.AdRevenuePigeon) {
+        YandexMetrica.reportAdRevenue(adRevenue.toNative())
+    }
 }

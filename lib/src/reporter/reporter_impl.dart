@@ -10,6 +10,7 @@ import 'dart:convert';
 
 import 'package:appmetrica_plugin/src/ecommerce_event.dart';
 
+import '../ad_revenue.dart';
 import '../error_description.dart';
 import '../appmetrica_api_pigeon.dart';
 import '../pigeon_converter.dart';
@@ -86,4 +87,8 @@ class ReporterImpl implements Reporter {
   @override
   Future<void> reportUserProfile(UserProfile userProfile) =>
       _reporterPigeon.reportUserProfile(_apiKey, userProfile.toPigeon());
+
+  @override
+  Future<void> reportAdRevenue(AdRevenue adRevenue) =>
+      _reporterPigeon.reportAdRevenue(_apiKey, adRevenue.toPigeon());
 }

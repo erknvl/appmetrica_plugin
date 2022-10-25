@@ -23,5 +23,6 @@
 - (void)reportUserProfileApiKey:(NSString *)apiKey userProfile:(YMMFUserProfilePigeon *)userProfile error:(FlutterError **)flutterError;
 - (void)reportRevenueApiKey:(NSString *)apiKey revenue:(YMMFRevenuePigeon *)revenue error:(FlutterError **)flutterError;
 - (void)reportECommerceApiKey:(NSString *)apiKey event:(YMMFECommerceEventPigeon *)event error:(FlutterError **)flutterError;
+- (void)reportAdRevenueApiKey:(NSString *)apiKey adRevenue:(YMMFAdRevenuePigeon *)adRevenue error:(FlutterError **)flutterError;
 
 @end

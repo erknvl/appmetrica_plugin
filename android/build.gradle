@@ -1,5 +1,5 @@
 group 'com.yandex.appmetrica_plugin'
-version '1.0.1'
+version '1.1.0'
 
 buildscript {
     ext.kotlin_version = '1.6.10'
@@ -45,5 +45,5 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation "com.yandex.android:mobmetricalib:5.0.0"
+    implementation "com.yandex.android:mobmetricalib:5.2.0"
 }

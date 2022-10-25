@@ -9,6 +9,7 @@
 library appmetrica;
 
 export 'src/activation_config_holder.dart';
+export 'src/ad_revenue.dart';
 export 'src/appmetrica.dart' show AppMetrica;
 export 'src/appmetrica_config.dart';
 export 'src/common_utils.dart' show setUpErrorHandling, setUpLogger;

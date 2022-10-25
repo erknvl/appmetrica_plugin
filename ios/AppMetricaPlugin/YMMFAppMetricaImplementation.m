@@ -15,6 +15,7 @@
 #import "YMMFAppMetricaConfigConverter.h"
 #import "YMMFPluginErrorDetailsConverter.h"
 #import "YMMFAppMetricaActivator.h"
+#import "YMMFAdRevenueConverter.h"
 
 @implementation YMMFAppMetricaImplementation
 
@@ -214,6 +215,12 @@
 - (void)handlePluginInitFinishedWithError:(FlutterError **)flutterError
 {
     [[YMMYandexMetrica getPluginExtension] handlePluginInitFinished];
+}
+
+- (void)reportAdRevenueAdRevenue:(YMMFAdRevenuePigeon *)adRevenue error:(FlutterError **)flutterError
+{
+    [YMMYandexMetrica reportAdRevenue:[YMMFAdRevenueConverter convert:adRevenue]
+                            onFailure:nil];
 }
 
 @end

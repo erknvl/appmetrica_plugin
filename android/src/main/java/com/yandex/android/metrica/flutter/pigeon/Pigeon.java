@@ -75,6 +75,21 @@ public class Pigeon {
     }
   }
 
+  public enum AdTypePigeon {
+    UNKNOWN(0),
+    NATIVE(1),
+    BANNER(2),
+    REWARDED(3),
+    INTERSTITIAL(4),
+    MREC(5),
+    OTHER(6);
+
+    private int index;
+    private AdTypePigeon(final int index) {
+      this.index = index;
+    }
+  }
+
   /** Generated class from Pigeon that represents data sent in messages. */
   public static class AppMetricaConfigPigeon {
     private @NonNull String apiKey;
@@ -2022,6 +2037,182 @@ public class Pigeon {
   }
 
   /** Generated class from Pigeon that represents data sent in messages. */
+  public static class AdRevenuePigeon {
+    private @NonNull String adRevenue;
+    public @NonNull String getAdRevenue() { return adRevenue; }
+    public void setAdRevenue(@NonNull String setterArg) {
+      if (setterArg == null) {
+        throw new IllegalStateException("Nonnull field \"adRevenue\" is null.");
+      }
+      this.adRevenue = setterArg;
+    }
+
+    private @NonNull String currency;
+    public @NonNull String getCurrency() { return currency; }
+    public void setCurrency(@NonNull String setterArg) {
+      if (setterArg == null) {
+        throw new IllegalStateException("Nonnull field \"currency\" is null.");
+      }
+      this.currency = setterArg;
+    }
+
+    private @Nullable AdTypePigeon adType;
+    public @Nullable AdTypePigeon getAdType() { return adType; }
+    public void setAdType(@Nullable AdTypePigeon setterArg) {
+      this.adType = setterArg;
+    }
+
+    private @Nullable String adNetwork;
+    public @Nullable String getAdNetwork() { return adNetwork; }
+    public void setAdNetwork(@Nullable String setterArg) {
+      this.adNetwork = setterArg;
+    }
+
+    private @Nullable String adUnitId;
+    public @Nullable String getAdUnitId() { return adUnitId; }
+    public void setAdUnitId(@Nullable String setterArg) {
+      this.adUnitId = setterArg;
+    }
+
+    private @Nullable String adUnitName;
+    public @Nullable String getAdUnitName() { return adUnitName; }
+    public void setAdUnitName(@Nullable String setterArg) {
+      this.adUnitName = setterArg;
+    }
+
+    private @Nullable String adPlacementId;
+    public @Nullable String getAdPlacementId() { return adPlacementId; }
+    public void setAdPlacementId(@Nullable String setterArg) {
+      this.adPlacementId = setterArg;
+    }
+
+    private @Nullable String adPlacementName;
+    public @Nullable String getAdPlacementName() { return adPlacementName; }
+    public void setAdPlacementName(@Nullable String setterArg) {
+      this.adPlacementName = setterArg;
+    }
+
+    private @Nullable String precision;
+    public @Nullable String getPrecision() { return precision; }
+    public void setPrecision(@Nullable String setterArg) {
+      this.precision = setterArg;
+    }
+
+    private @Nullable Map<String, String> payload;
+    public @Nullable Map<String, String> getPayload() { return payload; }
+    public void setPayload(@Nullable Map<String, String> setterArg) {
+      this.payload = setterArg;
+    }
+
+    /** Constructor is private to enforce null safety; use Builder. */
+    private AdRevenuePigeon() {}
+    public static final class Builder {
+      private @Nullable String adRevenue;
+      public @NonNull Builder setAdRevenue(@NonNull String setterArg) {
+        this.adRevenue = setterArg;
+        return this;
+      }
+      private @Nullable String currency;
+      public @NonNull Builder setCurrency(@NonNull String setterArg) {
+        this.currency = setterArg;
+        return this;
+      }
+      private @Nullable AdTypePigeon adType;
+      public @NonNull Builder setAdType(@Nullable AdTypePigeon setterArg) {
+        this.adType = setterArg;
+        return this;
+      }
+      private @Nullable String adNetwork;
+      public @NonNull Builder setAdNetwork(@Nullable String setterArg) {
+        this.adNetwork = setterArg;
+        return this;
+      }
+      private @Nullable String adUnitId;
+      public @NonNull Builder setAdUnitId(@Nullable String setterArg) {
+        this.adUnitId = setterArg;
+        return this;
+      }
+      private @Nullable String adUnitName;
+      public @NonNull Builder setAdUnitName(@Nullable String setterArg) {
+        this.adUnitName = setterArg;
+        return this;
+      }
+      private @Nullable String adPlacementId;
+      public @NonNull Builder setAdPlacementId(@Nullable String setterArg) {
+        this.adPlacementId = setterArg;
+        return this;
+      }
+      private @Nullable String adPlacementName;
+      public @NonNull Builder setAdPlacementName(@Nullable String setterArg) {
+        this.adPlacementName = setterArg;
+        return this;
+      }
+      private @Nullable String precision;
+      public @NonNull Builder setPrecision(@Nullable String setterArg) {
+        this.precision = setterArg;
+        return this;
+      }
+      private @Nullable Map<String, String> payload;
+      public @NonNull Builder setPayload(@Nullable Map<String, String> setterArg) {
+        this.payload = setterArg;
+        return this;
+      }
+      public @NonNull AdRevenuePigeon build() {
+        AdRevenuePigeon pigeonReturn = new AdRevenuePigeon();
+        pigeonReturn.setAdRevenue(adRevenue);
+        pigeonReturn.setCurrency(currency);
+        pigeonReturn.setAdType(adType);
+        pigeonReturn.setAdNetwork(adNetwork);
+        pigeonReturn.setAdUnitId(adUnitId);
+        pigeonReturn.setAdUnitName(adUnitName);
+        pigeonReturn.setAdPlacementId(adPlacementId);
+        pigeonReturn.setAdPlacementName(adPlacementName);
+        pigeonReturn.setPrecision(precision);
+        pigeonReturn.setPayload(payload);
+        return pigeonReturn;
+      }
+    }
+    @NonNull Map<String, Object> toMap() {
+      Map<String, Object> toMapResult = new HashMap<>();
+      toMapResult.put("adRevenue", adRevenue);
+      toMapResult.put("currency", currency);
+      toMapResult.put("adType", adType == null ? null : adType.index);
+      toMapResult.put("adNetwork", adNetwork);
+      toMapResult.put("adUnitId", adUnitId);
+      toMapResult.put("adUnitName", adUnitName);
+      toMapResult.put("adPlacementId", adPlacementId);
+      toMapResult.put("adPlacementName", adPlacementName);
+      toMapResult.put("precision", precision);
+      toMapResult.put("payload", payload);
+      return toMapResult;
+    }
+    static @NonNull AdRevenuePigeon fromMap(@NonNull Map<String, Object> map) {
+      AdRevenuePigeon pigeonResult = new AdRevenuePigeon();
+      Object adRevenue = map.get("adRevenue");
+      pigeonResult.setAdRevenue((String)adRevenue);
+      Object currency = map.get("currency");
+      pigeonResult.setCurrency((String)currency);
+      Object adType = map.get("adType");
+      pigeonResult.setAdType(adType == null ? null : AdTypePigeon.values()[(int)adType]);
+      Object adNetwork = map.get("adNetwork");
+      pigeonResult.setAdNetwork((String)adNetwork);
+      Object adUnitId = map.get("adUnitId");
+      pigeonResult.setAdUnitId((String)adUnitId);
+      Object adUnitName = map.get("adUnitName");
+      pigeonResult.setAdUnitName((String)adUnitName);
+      Object adPlacementId = map.get("adPlacementId");
+      pigeonResult.setAdPlacementId((String)adPlacementId);
+      Object adPlacementName = map.get("adPlacementName");
+      pigeonResult.setAdPlacementName((String)adPlacementName);
+      Object precision = map.get("precision");
+      pigeonResult.setPrecision((String)precision);
+      Object payload = map.get("payload");
+      pigeonResult.setPayload((Map<String, String>)payload);
+      return pigeonResult;
+    }
+  }
+
+  /** Generated class from Pigeon that represents data sent in messages. */
   public static class ReporterConfigPigeon {
     private @NonNull String apiKey;
     public @NonNull String getApiKey() { return apiKey; }
@@ -2222,81 +2413,84 @@ public class Pigeon {
     protected Object readValueOfType(byte type, ByteBuffer buffer) {
       switch (type) {
         case (byte)128:         
-          return AppMetricaConfigPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return AdRevenuePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)129:         
-          return AppMetricaDeferredDeeplinkErrorPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return AppMetricaConfigPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)130:         
-          return AppMetricaDeferredDeeplinkParametersPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return AppMetricaDeferredDeeplinkErrorPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)131:         
-          return AppMetricaDeferredDeeplinkPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return AppMetricaDeferredDeeplinkParametersPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)132:         
-          return AppMetricaDeviceIdPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return AppMetricaDeferredDeeplinkPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)133:         
-          return ECommerceAmountPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return AppMetricaDeviceIdPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)134:         
           return ECommerceAmountPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)135:         
-          return ECommerceCartItemPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceAmountPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)136:         
-          return ECommerceEventPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceCartItemPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)137:         
-          return ECommerceOrderPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceEventPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)138:         
-          return ECommercePricePigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceOrderPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)139:         
           return ECommercePricePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)140:         
-          return ECommerceProductPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommercePricePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)141:         
           return ECommerceProductPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)142:         
-          return ECommerceReferrerPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceProductPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)143:         
-          return ECommerceScreenPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceReferrerPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)144:         
-          return ErrorDetailsPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceScreenPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)145:         
           return ErrorDetailsPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)146:         
-          return LocationPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ErrorDetailsPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)147:         
-          return PreloadInfoPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return LocationPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)148:         
-          return ReceiptPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return PreloadInfoPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)149:         
-          return ReporterConfigPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ReceiptPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)150:         
-          return RevenuePigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ReporterConfigPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)151:         
-          return StackTraceElementPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return RevenuePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)152:         
-          return UserProfileAttributePigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return StackTraceElementPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)153:         
+          return UserProfileAttributePigeon.fromMap((Map<String, Object>) readValue(buffer));
+        
+        case (byte)154:         
           return UserProfilePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         default:        
@@ -2306,108 +2500,112 @@ public class Pigeon {
     }
     @Override
     protected void writeValue(ByteArrayOutputStream stream, Object value)     {
-      if (value instanceof AppMetricaConfigPigeon) {
+      if (value instanceof AdRevenuePigeon) {
         stream.write(128);
+        writeValue(stream, ((AdRevenuePigeon) value).toMap());
+      } else 
+      if (value instanceof AppMetricaConfigPigeon) {
+        stream.write(129);
         writeValue(stream, ((AppMetricaConfigPigeon) value).toMap());
       } else 
       if (value instanceof AppMetricaDeferredDeeplinkErrorPigeon) {
-        stream.write(129);
+        stream.write(130);
         writeValue(stream, ((AppMetricaDeferredDeeplinkErrorPigeon) value).toMap());
       } else 
       if (value instanceof AppMetricaDeferredDeeplinkParametersPigeon) {
-        stream.write(130);
+        stream.write(131);
         writeValue(stream, ((AppMetricaDeferredDeeplinkParametersPigeon) value).toMap());
       } else 
       if (value instanceof AppMetricaDeferredDeeplinkPigeon) {
-        stream.write(131);
+        stream.write(132);
         writeValue(stream, ((AppMetricaDeferredDeeplinkPigeon) value).toMap());
       } else 
       if (value instanceof AppMetricaDeviceIdPigeon) {
-        stream.write(132);
-        writeValue(stream, ((AppMetricaDeviceIdPigeon) value).toMap());
-      } else 
-      if (value instanceof ECommerceAmountPigeon) {
         stream.write(133);
-        writeValue(stream, ((ECommerceAmountPigeon) value).toMap());
+        writeValue(stream, ((AppMetricaDeviceIdPigeon) value).toMap());
       } else 
       if (value instanceof ECommerceAmountPigeon) {
         stream.write(134);
         writeValue(stream, ((ECommerceAmountPigeon) value).toMap());
       } else 
-      if (value instanceof ECommerceCartItemPigeon) {
+      if (value instanceof ECommerceAmountPigeon) {
         stream.write(135);
+        writeValue(stream, ((ECommerceAmountPigeon) value).toMap());
+      } else 
+      if (value instanceof ECommerceCartItemPigeon) {
+        stream.write(136);
         writeValue(stream, ((ECommerceCartItemPigeon) value).toMap());
       } else 
       if (value instanceof ECommerceEventPigeon) {
-        stream.write(136);
+        stream.write(137);
         writeValue(stream, ((ECommerceEventPigeon) value).toMap());
       } else 
       if (value instanceof ECommerceOrderPigeon) {
-        stream.write(137);
-        writeValue(stream, ((ECommerceOrderPigeon) value).toMap());
-      } else 
-      if (value instanceof ECommercePricePigeon) {
         stream.write(138);
-        writeValue(stream, ((ECommercePricePigeon) value).toMap());
+        writeValue(stream, ((ECommerceOrderPigeon) value).toMap());
       } else 
       if (value instanceof ECommercePricePigeon) {
         stream.write(139);
         writeValue(stream, ((ECommercePricePigeon) value).toMap());
       } else 
-      if (value instanceof ECommerceProductPigeon) {
+      if (value instanceof ECommercePricePigeon) {
         stream.write(140);
-        writeValue(stream, ((ECommerceProductPigeon) value).toMap());
+        writeValue(stream, ((ECommercePricePigeon) value).toMap());
       } else 
       if (value instanceof ECommerceProductPigeon) {
         stream.write(141);
         writeValue(stream, ((ECommerceProductPigeon) value).toMap());
       } else 
-      if (value instanceof ECommerceReferrerPigeon) {
+      if (value instanceof ECommerceProductPigeon) {
         stream.write(142);
+        writeValue(stream, ((ECommerceProductPigeon) value).toMap());
+      } else 
+      if (value instanceof ECommerceReferrerPigeon) {
+        stream.write(143);
         writeValue(stream, ((ECommerceReferrerPigeon) value).toMap());
       } else 
       if (value instanceof ECommerceScreenPigeon) {
-        stream.write(143);
-        writeValue(stream, ((ECommerceScreenPigeon) value).toMap());
-      } else 
-      if (value instanceof ErrorDetailsPigeon) {
         stream.write(144);
-        writeValue(stream, ((ErrorDetailsPigeon) value).toMap());
+        writeValue(stream, ((ECommerceScreenPigeon) value).toMap());
       } else 
       if (value instanceof ErrorDetailsPigeon) {
         stream.write(145);
         writeValue(stream, ((ErrorDetailsPigeon) value).toMap());
       } else 
-      if (value instanceof LocationPigeon) {
+      if (value instanceof ErrorDetailsPigeon) {
         stream.write(146);
+        writeValue(stream, ((ErrorDetailsPigeon) value).toMap());
+      } else 
+      if (value instanceof LocationPigeon) {
+        stream.write(147);
         writeValue(stream, ((LocationPigeon) value).toMap());
       } else 
       if (value instanceof PreloadInfoPigeon) {
-        stream.write(147);
+        stream.write(148);
         writeValue(stream, ((PreloadInfoPigeon) value).toMap());
       } else 
       if (value instanceof ReceiptPigeon) {
-        stream.write(148);
+        stream.write(149);
         writeValue(stream, ((ReceiptPigeon) value).toMap());
       } else 
       if (value instanceof ReporterConfigPigeon) {
-        stream.write(149);
+        stream.write(150);
         writeValue(stream, ((ReporterConfigPigeon) value).toMap());
       } else 
       if (value instanceof RevenuePigeon) {
-        stream.write(150);
+        stream.write(151);
         writeValue(stream, ((RevenuePigeon) value).toMap());
       } else 
       if (value instanceof StackTraceElementPigeon) {
-        stream.write(151);
+        stream.write(152);
         writeValue(stream, ((StackTraceElementPigeon) value).toMap());
       } else 
       if (value instanceof UserProfileAttributePigeon) {
-        stream.write(152);
+        stream.write(153);
         writeValue(stream, ((UserProfileAttributePigeon) value).toMap());
       } else 
       if (value instanceof UserProfilePigeon) {
-        stream.write(153);
+        stream.write(154);
         writeValue(stream, ((UserProfilePigeon) value).toMap());
       } else 
 {
@@ -2445,6 +2643,7 @@ public class Pigeon {
     void reportRevenue(@NonNull RevenuePigeon revenue);
     void reportECommerce(@NonNull ECommerceEventPigeon event);
     void handlePluginInitFinished();
+    void reportAdRevenue(@NonNull AdRevenuePigeon adRevenue);
 
     /** The codec used by AppMetricaPigeon. */
     static MessageCodec<Object> getCodec() {
@@ -3085,6 +3284,30 @@ public class Pigeon {
           channel.setMessageHandler(null);
         }
       }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.AppMetricaPigeon.reportAdRevenue", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              AdRevenuePigeon adRevenueArg = (AdRevenuePigeon)args.get(0);
+              if (adRevenueArg == null) {
+                throw new NullPointerException("adRevenueArg unexpectedly null.");
+              }
+              api.reportAdRevenue(adRevenueArg);
+              wrapped.put("result", null);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+            }
+            reply.reply(wrapped);
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
     }
   }
   private static class ReporterPigeonCodec extends StandardMessageCodec {
@@ -3094,57 +3317,60 @@ public class Pigeon {
     protected Object readValueOfType(byte type, ByteBuffer buffer) {
       switch (type) {
         case (byte)128:         
-          return ECommerceAmountPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return AdRevenuePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)129:         
           return ECommerceAmountPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)130:         
-          return ECommerceCartItemPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceAmountPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)131:         
-          return ECommerceEventPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceCartItemPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)132:         
-          return ECommerceOrderPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceEventPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)133:         
-          return ECommercePricePigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceOrderPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)134:         
           return ECommercePricePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)135:         
-          return ECommerceProductPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommercePricePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)136:         
           return ECommerceProductPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)137:         
-          return ECommerceReferrerPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceProductPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)138:         
-          return ECommerceScreenPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceReferrerPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)139:         
-          return ErrorDetailsPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ECommerceScreenPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)140:         
           return ErrorDetailsPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)141:         
-          return ReceiptPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ErrorDetailsPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)142:         
-          return RevenuePigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return ReceiptPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)143:         
-          return StackTraceElementPigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return RevenuePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)144:         
-          return UserProfileAttributePigeon.fromMap((Map<String, Object>) readValue(buffer));
+          return StackTraceElementPigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         case (byte)145:         
+          return UserProfileAttributePigeon.fromMap((Map<String, Object>) readValue(buffer));
+        
+        case (byte)146:         
           return UserProfilePigeon.fromMap((Map<String, Object>) readValue(buffer));
         
         default:        
@@ -3154,76 +3380,80 @@ public class Pigeon {
     }
     @Override
     protected void writeValue(ByteArrayOutputStream stream, Object value)     {
-      if (value instanceof ECommerceAmountPigeon) {
+      if (value instanceof AdRevenuePigeon) {
         stream.write(128);
-        writeValue(stream, ((ECommerceAmountPigeon) value).toMap());
+        writeValue(stream, ((AdRevenuePigeon) value).toMap());
       } else 
       if (value instanceof ECommerceAmountPigeon) {
         stream.write(129);
         writeValue(stream, ((ECommerceAmountPigeon) value).toMap());
       } else 
-      if (value instanceof ECommerceCartItemPigeon) {
+      if (value instanceof ECommerceAmountPigeon) {
         stream.write(130);
+        writeValue(stream, ((ECommerceAmountPigeon) value).toMap());
+      } else 
+      if (value instanceof ECommerceCartItemPigeon) {
+        stream.write(131);
         writeValue(stream, ((ECommerceCartItemPigeon) value).toMap());
       } else 
       if (value instanceof ECommerceEventPigeon) {
-        stream.write(131);
+        stream.write(132);
         writeValue(stream, ((ECommerceEventPigeon) value).toMap());
       } else 
       if (value instanceof ECommerceOrderPigeon) {
-        stream.write(132);
-        writeValue(stream, ((ECommerceOrderPigeon) value).toMap());
-      } else 
-      if (value instanceof ECommercePricePigeon) {
         stream.write(133);
-        writeValue(stream, ((ECommercePricePigeon) value).toMap());
+        writeValue(stream, ((ECommerceOrderPigeon) value).toMap());
       } else 
       if (value instanceof ECommercePricePigeon) {
         stream.write(134);
         writeValue(stream, ((ECommercePricePigeon) value).toMap());
       } else 
-      if (value instanceof ECommerceProductPigeon) {
+      if (value instanceof ECommercePricePigeon) {
         stream.write(135);
-        writeValue(stream, ((ECommerceProductPigeon) value).toMap());
+        writeValue(stream, ((ECommercePricePigeon) value).toMap());
       } else 
       if (value instanceof ECommerceProductPigeon) {
         stream.write(136);
         writeValue(stream, ((ECommerceProductPigeon) value).toMap());
       } else 
-      if (value instanceof ECommerceReferrerPigeon) {
+      if (value instanceof ECommerceProductPigeon) {
         stream.write(137);
+        writeValue(stream, ((ECommerceProductPigeon) value).toMap());
+      } else 
+      if (value instanceof ECommerceReferrerPigeon) {
+        stream.write(138);
         writeValue(stream, ((ECommerceReferrerPigeon) value).toMap());
       } else 
       if (value instanceof ECommerceScreenPigeon) {
-        stream.write(138);
-        writeValue(stream, ((ECommerceScreenPigeon) value).toMap());
-      } else 
-      if (value instanceof ErrorDetailsPigeon) {
         stream.write(139);
-        writeValue(stream, ((ErrorDetailsPigeon) value).toMap());
+        writeValue(stream, ((ECommerceScreenPigeon) value).toMap());
       } else 
       if (value instanceof ErrorDetailsPigeon) {
         stream.write(140);
         writeValue(stream, ((ErrorDetailsPigeon) value).toMap());
       } else 
-      if (value instanceof ReceiptPigeon) {
+      if (value instanceof ErrorDetailsPigeon) {
         stream.write(141);
+        writeValue(stream, ((ErrorDetailsPigeon) value).toMap());
+      } else 
+      if (value instanceof ReceiptPigeon) {
+        stream.write(142);
         writeValue(stream, ((ReceiptPigeon) value).toMap());
       } else 
       if (value instanceof RevenuePigeon) {
-        stream.write(142);
+        stream.write(143);
         writeValue(stream, ((RevenuePigeon) value).toMap());
       } else 
       if (value instanceof StackTraceElementPigeon) {
-        stream.write(143);
+        stream.write(144);
         writeValue(stream, ((StackTraceElementPigeon) value).toMap());
       } else 
       if (value instanceof UserProfileAttributePigeon) {
-        stream.write(144);
+        stream.write(145);
         writeValue(stream, ((UserProfileAttributePigeon) value).toMap());
       } else 
       if (value instanceof UserProfilePigeon) {
-        stream.write(145);
+        stream.write(146);
         writeValue(stream, ((UserProfilePigeon) value).toMap());
       } else 
 {
@@ -3247,6 +3477,7 @@ public class Pigeon {
     void reportUserProfile(@NonNull String apiKey, @NonNull UserProfilePigeon userProfile);
     void reportRevenue(@NonNull String apiKey, @NonNull RevenuePigeon revenue);
     void reportECommerce(@NonNull String apiKey, @NonNull ECommerceEventPigeon event);
+    void reportAdRevenue(@NonNull String apiKey, @NonNull AdRevenuePigeon adRevenue);
 
     /** The codec used by ReporterPigeon. */
     static MessageCodec<Object> getCodec() {
@@ -3597,6 +3828,34 @@ public class Pigeon {
                 throw new NullPointerException("eventArg unexpectedly null.");
               }
               api.reportECommerce(apiKeyArg, eventArg);
+              wrapped.put("result", null);
+            }
+            catch (Error | RuntimeException exception) {
+              wrapped.put("error", wrapError(exception));
+            }
+            reply.reply(wrapped);
+          });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(binaryMessenger, "dev.flutter.pigeon.ReporterPigeon.reportAdRevenue", getCodec());
+        if (api != null) {
+          channel.setMessageHandler((message, reply) -> {
+            Map<String, Object> wrapped = new HashMap<>();
+            try {
+              ArrayList<Object> args = (ArrayList<Object>)message;
+              String apiKeyArg = (String)args.get(0);
+              if (apiKeyArg == null) {
+                throw new NullPointerException("apiKeyArg unexpectedly null.");
+              }
+              AdRevenuePigeon adRevenueArg = (AdRevenuePigeon)args.get(1);
+              if (adRevenueArg == null) {
+                throw new NullPointerException("adRevenueArg unexpectedly null.");
+              }
+              api.reportAdRevenue(apiKeyArg, adRevenueArg);
               wrapped.put("result", null);
             }
             catch (Error | RuntimeException exception) {

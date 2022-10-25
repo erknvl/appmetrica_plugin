@@ -57,4 +57,8 @@ class Reporter(private val context: Context): Pigeon.ReporterPigeon {
     override fun reportECommerce(apiKey: String, event: Pigeon.ECommerceEventPigeon) {
         event.toNative()?.let(YandexMetrica.getReporter(context, apiKey)::reportECommerce)
     }
+
+    override fun reportAdRevenue(apiKey: String, adRevenue: Pigeon.AdRevenuePigeon) {
+        YandexMetrica.getReporter(context, apiKey).reportAdRevenue(adRevenue.toNative())
+    }
 }

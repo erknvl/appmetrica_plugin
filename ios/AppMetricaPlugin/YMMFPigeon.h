@@ -41,6 +41,16 @@ typedef NS_ENUM(NSUInteger, YMMFGenderPigeon) {
   YMMFGenderPigeonUNDEFINED = 3,
 };
 
+typedef NS_ENUM(NSUInteger, YMMFAdTypePigeon) {
+  YMMFAdTypePigeonUNKNOWN = 0,
+  YMMFAdTypePigeonNATIVE = 1,
+  YMMFAdTypePigeonBANNER = 2,
+  YMMFAdTypePigeonREWARDED = 3,
+  YMMFAdTypePigeonINTERSTITIAL = 4,
+  YMMFAdTypePigeonMREC = 5,
+  YMMFAdTypePigeonOTHER = 6,
+};
+
 @class YMMFAppMetricaConfigPigeon;
 @class YMMFLocationPigeon;
 @class YMMFPreloadInfoPigeon;
@@ -62,6 +72,7 @@ typedef NS_ENUM(NSUInteger, YMMFGenderPigeon) {
 @class YMMFErrorDetailsPigeon;
 @class YMMFUserProfileAttributePigeon;
 @class YMMFUserProfilePigeon;
+@class YMMFAdRevenuePigeon;
 @class YMMFReporterConfigPigeon;
 
 @interface YMMFAppMetricaConfigPigeon : NSObject
@@ -353,6 +364,31 @@ typedef NS_ENUM(NSUInteger, YMMFGenderPigeon) {
 @property(nonatomic, strong) NSArray<YMMFUserProfileAttributePigeon *> * attributes;
 @end
 
+@interface YMMFAdRevenuePigeon : NSObject
+/// `init` unavailable to enforce nonnull fields, see the `make` class method.
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)makeWithAdRevenue:(NSString *)adRevenue
+    currency:(NSString *)currency
+    adType:(YMMFAdTypePigeon)adType
+    adNetwork:(nullable NSString *)adNetwork
+    adUnitId:(nullable NSString *)adUnitId
+    adUnitName:(nullable NSString *)adUnitName
+    adPlacementId:(nullable NSString *)adPlacementId
+    adPlacementName:(nullable NSString *)adPlacementName
+    precision:(nullable NSString *)precision
+    payload:(nullable NSDictionary<NSString *, NSString *> *)payload;
+@property(nonatomic, copy) NSString * adRevenue;
+@property(nonatomic, copy) NSString * currency;
+@property(nonatomic, assign) YMMFAdTypePigeon adType;
+@property(nonatomic, copy, nullable) NSString * adNetwork;
+@property(nonatomic, copy, nullable) NSString * adUnitId;
+@property(nonatomic, copy, nullable) NSString * adUnitName;
+@property(nonatomic, copy, nullable) NSString * adPlacementId;
+@property(nonatomic, copy, nullable) NSString * adPlacementName;
+@property(nonatomic, copy, nullable) NSString * precision;
+@property(nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> * payload;
+@end
+
 @interface YMMFReporterConfigPigeon : NSObject
 /// `init` unavailable to enforce nonnull fields, see the `make` class method.
 - (instancetype)init NS_UNAVAILABLE;
@@ -413,6 +449,7 @@ NSObject<FlutterMessageCodec> *YMMFAppMetricaPigeonGetCodec(void);
 - (void)reportRevenueRevenue:(YMMFRevenuePigeon *)revenue error:(FlutterError *_Nullable *_Nonnull)error;
 - (void)reportECommerceEvent:(YMMFECommerceEventPigeon *)event error:(FlutterError *_Nullable *_Nonnull)error;
 - (void)handlePluginInitFinishedWithError:(FlutterError *_Nullable *_Nonnull)error;
+- (void)reportAdRevenueAdRevenue:(YMMFAdRevenuePigeon *)adRevenue error:(FlutterError *_Nullable *_Nonnull)error;
 @end
 
 extern void YMMFAppMetricaPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<YMMFAppMetricaPigeon> *_Nullable api);
@@ -434,6 +471,7 @@ NSObject<FlutterMessageCodec> *YMMFReporterPigeonGetCodec(void);
 - (void)reportUserProfileApiKey:(NSString *)apiKey userProfile:(YMMFUserProfilePigeon *)userProfile error:(FlutterError *_Nullable *_Nonnull)error;
 - (void)reportRevenueApiKey:(NSString *)apiKey revenue:(YMMFRevenuePigeon *)revenue error:(FlutterError *_Nullable *_Nonnull)error;
 - (void)reportECommerceApiKey:(NSString *)apiKey event:(YMMFECommerceEventPigeon *)event error:(FlutterError *_Nullable *_Nonnull)error;
+- (void)reportAdRevenueApiKey:(NSString *)apiKey adRevenue:(YMMFAdRevenuePigeon *)adRevenue error:(FlutterError *_Nullable *_Nonnull)error;
 @end
 
 extern void YMMFReporterPigeonSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<YMMFReporterPigeon> *_Nullable api);

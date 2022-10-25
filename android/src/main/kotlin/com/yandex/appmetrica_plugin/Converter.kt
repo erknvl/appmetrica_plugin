@@ -10,6 +10,8 @@ package com.yandex.appmetrica_plugin
 
 import android.location.Location
 import com.yandex.android.metrica.flutter.pigeon.Pigeon
+import com.yandex.metrica.AdRevenue
+import com.yandex.metrica.AdType
 import com.yandex.metrica.PreloadInfo
 import com.yandex.metrica.Revenue
 import com.yandex.metrica.YandexMetricaConfig
@@ -200,3 +202,27 @@ internal fun Pigeon.ErrorDetailsPigeon.toNative() = PluginErrorDetails.Builder()
     .withVirtualMachineVersion(dartVersion)
     .withStacktrace(backtrace?.map { it.toNative() })
     .build()
+
+private val adTypeToNative = mapOf(
+    Pigeon.AdTypePigeon.UNKNOWN to null,
+    Pigeon.AdTypePigeon.NATIVE to AdType.NATIVE,
+    Pigeon.AdTypePigeon.BANNER to AdType.BANNER,
+    Pigeon.AdTypePigeon.REWARDED to AdType.REWARDED,
+    Pigeon.AdTypePigeon.INTERSTITIAL to AdType.INTERSTITIAL,
+    Pigeon.AdTypePigeon.MREC to AdType.MREC,
+    Pigeon.AdTypePigeon.OTHER to AdType.OTHER
+)
+
+internal fun Pigeon.AdRevenuePigeon.toNative() = AdRevenue.newBuilder(
+    BigDecimal(adRevenue),
+    Currency.getInstance(currency)
+).apply {
+    adType?.let { adTypeToNative[it] }?.let(::withAdType)
+    adNetwork?.let(::withAdNetwork)
+    adUnitId?.let(::withAdUnitId)
+    adUnitName?.let(::withAdUnitName)
+    adPlacementId?.let(::withAdPlacementId)
+    adPlacementName?.let(::withAdPlacementName)
+    precision?.let(::withPrecision)
+    payload?.let(::withPayload)
+}.build()

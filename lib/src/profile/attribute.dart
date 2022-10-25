@@ -107,7 +107,7 @@ class GenderAttribute extends _ValueAttribute<Gender> {
   @override
   void _setPigeonValue(UserProfileAttributePigeon pigeon) {
     pigeon.genderValue =
-        _value == null ? GenderPigeon.UNDEFINED : gender_to_pigeon[_value];
+        _value == null ? GenderPigeon.UNDEFINED : genderToPigeon[_value];
   }
 }
 
@@ -203,7 +203,7 @@ abstract class _ValueAttribute<T> extends UserProfileAttribute {
   void _setPigeonValue(UserProfileAttributePigeon pigeon);
 }
 
-final gender_to_pigeon = {
+final genderToPigeon = {
   Gender.MALE: GenderPigeon.MALE,
   Gender.FEMALE: GenderPigeon.FEMALE,
   Gender.OTHER: GenderPigeon.OTHER,

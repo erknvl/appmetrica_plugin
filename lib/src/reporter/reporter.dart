@@ -6,6 +6,7 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
+import '../ad_revenue.dart';
 import '../ecommerce_event.dart';
 import '../error_description.dart';
 import '../profile/attribute.dart';
@@ -66,4 +67,7 @@ abstract class Reporter {
 
   /// Sends ecommerce-event.
   Future<void> reportECommerce(ECommerceEvent event);
+
+  /// Sends information about ad revenue.
+  Future<void> reportAdRevenue(AdRevenue adRevenue);
 }

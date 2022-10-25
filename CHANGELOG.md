@@ -1,3 +1,11 @@
+## 1.1.0
+
+- Added the AdRevenue API for transmitting advertising monetization revenue at the impression level (Impression-Level Revenue Data).
+- Native SDK versions:
+  - Android: 5.2.0
+  - iOS: 4.4
+ 
+  
 ## 1.0.1
 
 - Fixed `NPE` when creating `UserProfileAttribute` with null argument.

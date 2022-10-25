@@ -37,5 +37,6 @@
 - (void)reportRevenueRevenue:(YMMFRevenuePigeon *)revenue error:(FlutterError **)flutterError;
 - (void)reportECommerceEvent:(YMMFECommerceEventPigeon *)event error:(FlutterError **)flutterError;
 - (void)handlePluginInitFinishedWithError:(FlutterError **)flutterError;
+- (void)reportAdRevenueAdRevenue:(YMMFAdRevenuePigeon *)adRevenue error:(FlutterError **)flutterError;
 
 @end

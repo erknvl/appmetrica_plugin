@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 
+import 'package:flutter/foundation.dart' show WriteBuffer, ReadBuffer;
 import 'package:flutter/services.dart';
 
 enum AppMetricaDeferredDeeplinkReasonPigeon {
@@ -38,6 +39,16 @@ enum GenderPigeon {
   FEMALE,
   OTHER,
   UNDEFINED,
+}
+
+enum AdTypePigeon {
+  UNKNOWN,
+  NATIVE,
+  BANNER,
+  REWARDED,
+  INTERSTITIAL,
+  MREC,
+  OTHER,
 }
 
 class AppMetricaConfigPigeon {
@@ -830,6 +841,66 @@ class UserProfilePigeon {
   }
 }
 
+class AdRevenuePigeon {
+  AdRevenuePigeon({
+    required this.adRevenue,
+    required this.currency,
+    this.adType,
+    this.adNetwork,
+    this.adUnitId,
+    this.adUnitName,
+    this.adPlacementId,
+    this.adPlacementName,
+    this.precision,
+    this.payload,
+  });
+
+  String adRevenue;
+  String currency;
+  AdTypePigeon? adType;
+  String? adNetwork;
+  String? adUnitId;
+  String? adUnitName;
+  String? adPlacementId;
+  String? adPlacementName;
+  String? precision;
+  Map<String?, String?>? payload;
+
+  Object encode() {
+    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
+    pigeonMap['adRevenue'] = adRevenue;
+    pigeonMap['currency'] = currency;
+    pigeonMap['adType'] = adType?.index;
+    pigeonMap['adNetwork'] = adNetwork;
+    pigeonMap['adUnitId'] = adUnitId;
+    pigeonMap['adUnitName'] = adUnitName;
+    pigeonMap['adPlacementId'] = adPlacementId;
+    pigeonMap['adPlacementName'] = adPlacementName;
+    pigeonMap['precision'] = precision;
+    pigeonMap['payload'] = payload;
+    return pigeonMap;
+  }
+
+  static AdRevenuePigeon decode(Object message) {
+    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
+    return AdRevenuePigeon(
+      adRevenue: pigeonMap['adRevenue']! as String,
+      currency: pigeonMap['currency']! as String,
+      adType: pigeonMap['adType'] != null
+          ? AdTypePigeon.values[pigeonMap['adType']! as int]
+          : null,
+      adNetwork: pigeonMap['adNetwork'] as String?,
+      adUnitId: pigeonMap['adUnitId'] as String?,
+      adUnitName: pigeonMap['adUnitName'] as String?,
+      adPlacementId: pigeonMap['adPlacementId'] as String?,
+      adPlacementName: pigeonMap['adPlacementName'] as String?,
+      precision: pigeonMap['precision'] as String?,
+      payload: (pigeonMap['payload'] as Map<Object?, Object?>?)
+          ?.cast<String?, String?>(),
+    );
+  }
+}
+
 class ReporterConfigPigeon {
   ReporterConfigPigeon({
     required this.apiKey,
@@ -953,83 +1024,86 @@ class _AppMetricaPigeonCodec extends StandardMessageCodec {
   const _AppMetricaPigeonCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is AppMetricaConfigPigeon) {
+    if (value is AdRevenuePigeon) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
-    } else if (value is AppMetricaDeferredDeeplinkErrorPigeon) {
+    } else if (value is AppMetricaConfigPigeon) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else if (value is AppMetricaDeferredDeeplinkParametersPigeon) {
+    } else if (value is AppMetricaDeferredDeeplinkErrorPigeon) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else if (value is AppMetricaDeferredDeeplinkPigeon) {
+    } else if (value is AppMetricaDeferredDeeplinkParametersPigeon) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is AppMetricaDeviceIdPigeon) {
+    } else if (value is AppMetricaDeferredDeeplinkPigeon) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceAmountPigeon) {
+    } else if (value is AppMetricaDeviceIdPigeon) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
     } else if (value is ECommerceAmountPigeon) {
       buffer.putUint8(134);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceCartItemPigeon) {
+    } else if (value is ECommerceAmountPigeon) {
       buffer.putUint8(135);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceEventPigeon) {
+    } else if (value is ECommerceCartItemPigeon) {
       buffer.putUint8(136);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceOrderPigeon) {
+    } else if (value is ECommerceEventPigeon) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
-    } else if (value is ECommercePricePigeon) {
+    } else if (value is ECommerceOrderPigeon) {
       buffer.putUint8(138);
       writeValue(buffer, value.encode());
     } else if (value is ECommercePricePigeon) {
       buffer.putUint8(139);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceProductPigeon) {
+    } else if (value is ECommercePricePigeon) {
       buffer.putUint8(140);
       writeValue(buffer, value.encode());
     } else if (value is ECommerceProductPigeon) {
       buffer.putUint8(141);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceReferrerPigeon) {
+    } else if (value is ECommerceProductPigeon) {
       buffer.putUint8(142);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceScreenPigeon) {
+    } else if (value is ECommerceReferrerPigeon) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    } else if (value is ErrorDetailsPigeon) {
+    } else if (value is ECommerceScreenPigeon) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
     } else if (value is ErrorDetailsPigeon) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    } else if (value is LocationPigeon) {
+    } else if (value is ErrorDetailsPigeon) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    } else if (value is PreloadInfoPigeon) {
+    } else if (value is LocationPigeon) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    } else if (value is ReceiptPigeon) {
+    } else if (value is PreloadInfoPigeon) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    } else if (value is ReporterConfigPigeon) {
+    } else if (value is ReceiptPigeon) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    } else if (value is RevenuePigeon) {
+    } else if (value is ReporterConfigPigeon) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    } else if (value is StackTraceElementPigeon) {
+    } else if (value is RevenuePigeon) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    } else if (value is UserProfileAttributePigeon) {
+    } else if (value is StackTraceElementPigeon) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    } else if (value is UserProfilePigeon) {
+    } else if (value is UserProfileAttributePigeon) {
       buffer.putUint8(153);
+      writeValue(buffer, value.encode());
+    } else if (value is UserProfilePigeon) {
+      buffer.putUint8(154);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -1040,82 +1114,85 @@ class _AppMetricaPigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 128:
-        return AppMetricaConfigPigeon.decode(readValue(buffer)!);
+        return AdRevenuePigeon.decode(readValue(buffer)!);
 
       case 129:
-        return AppMetricaDeferredDeeplinkErrorPigeon.decode(readValue(buffer)!);
+        return AppMetricaConfigPigeon.decode(readValue(buffer)!);
 
       case 130:
+        return AppMetricaDeferredDeeplinkErrorPigeon.decode(readValue(buffer)!);
+
+      case 131:
         return AppMetricaDeferredDeeplinkParametersPigeon.decode(
             readValue(buffer)!);
 
-      case 131:
+      case 132:
         return AppMetricaDeferredDeeplinkPigeon.decode(readValue(buffer)!);
 
-      case 132:
-        return AppMetricaDeviceIdPigeon.decode(readValue(buffer)!);
-
       case 133:
-        return ECommerceAmountPigeon.decode(readValue(buffer)!);
+        return AppMetricaDeviceIdPigeon.decode(readValue(buffer)!);
 
       case 134:
         return ECommerceAmountPigeon.decode(readValue(buffer)!);
 
       case 135:
-        return ECommerceCartItemPigeon.decode(readValue(buffer)!);
+        return ECommerceAmountPigeon.decode(readValue(buffer)!);
 
       case 136:
-        return ECommerceEventPigeon.decode(readValue(buffer)!);
+        return ECommerceCartItemPigeon.decode(readValue(buffer)!);
 
       case 137:
-        return ECommerceOrderPigeon.decode(readValue(buffer)!);
+        return ECommerceEventPigeon.decode(readValue(buffer)!);
 
       case 138:
-        return ECommercePricePigeon.decode(readValue(buffer)!);
+        return ECommerceOrderPigeon.decode(readValue(buffer)!);
 
       case 139:
         return ECommercePricePigeon.decode(readValue(buffer)!);
 
       case 140:
-        return ECommerceProductPigeon.decode(readValue(buffer)!);
+        return ECommercePricePigeon.decode(readValue(buffer)!);
 
       case 141:
         return ECommerceProductPigeon.decode(readValue(buffer)!);
 
       case 142:
-        return ECommerceReferrerPigeon.decode(readValue(buffer)!);
+        return ECommerceProductPigeon.decode(readValue(buffer)!);
 
       case 143:
-        return ECommerceScreenPigeon.decode(readValue(buffer)!);
+        return ECommerceReferrerPigeon.decode(readValue(buffer)!);
 
       case 144:
-        return ErrorDetailsPigeon.decode(readValue(buffer)!);
+        return ECommerceScreenPigeon.decode(readValue(buffer)!);
 
       case 145:
         return ErrorDetailsPigeon.decode(readValue(buffer)!);
 
       case 146:
-        return LocationPigeon.decode(readValue(buffer)!);
+        return ErrorDetailsPigeon.decode(readValue(buffer)!);
 
       case 147:
-        return PreloadInfoPigeon.decode(readValue(buffer)!);
+        return LocationPigeon.decode(readValue(buffer)!);
 
       case 148:
-        return ReceiptPigeon.decode(readValue(buffer)!);
+        return PreloadInfoPigeon.decode(readValue(buffer)!);
 
       case 149:
-        return ReporterConfigPigeon.decode(readValue(buffer)!);
+        return ReceiptPigeon.decode(readValue(buffer)!);
 
       case 150:
-        return RevenuePigeon.decode(readValue(buffer)!);
+        return ReporterConfigPigeon.decode(readValue(buffer)!);
 
       case 151:
-        return StackTraceElementPigeon.decode(readValue(buffer)!);
+        return RevenuePigeon.decode(readValue(buffer)!);
 
       case 152:
-        return UserProfileAttributePigeon.decode(readValue(buffer)!);
+        return StackTraceElementPigeon.decode(readValue(buffer)!);
 
       case 153:
+        return UserProfileAttributePigeon.decode(readValue(buffer)!);
+
+      case 154:
         return UserProfilePigeon.decode(readValue(buffer)!);
 
       default:
@@ -1816,65 +1893,92 @@ class AppMetricaPigeon {
       return;
     }
   }
+
+  Future<void> reportAdRevenue(AdRevenuePigeon arg_adRevenue) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.AppMetricaPigeon.reportAdRevenue', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap =
+        await channel.send(<Object?>[arg_adRevenue]) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      return;
+    }
+  }
 }
 
 class _ReporterPigeonCodec extends StandardMessageCodec {
   const _ReporterPigeonCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is ECommerceAmountPigeon) {
+    if (value is AdRevenuePigeon) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
     } else if (value is ECommerceAmountPigeon) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceCartItemPigeon) {
+    } else if (value is ECommerceAmountPigeon) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceEventPigeon) {
+    } else if (value is ECommerceCartItemPigeon) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceOrderPigeon) {
+    } else if (value is ECommerceEventPigeon) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is ECommercePricePigeon) {
+    } else if (value is ECommerceOrderPigeon) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
     } else if (value is ECommercePricePigeon) {
       buffer.putUint8(134);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceProductPigeon) {
+    } else if (value is ECommercePricePigeon) {
       buffer.putUint8(135);
       writeValue(buffer, value.encode());
     } else if (value is ECommerceProductPigeon) {
       buffer.putUint8(136);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceReferrerPigeon) {
+    } else if (value is ECommerceProductPigeon) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
-    } else if (value is ECommerceScreenPigeon) {
+    } else if (value is ECommerceReferrerPigeon) {
       buffer.putUint8(138);
       writeValue(buffer, value.encode());
-    } else if (value is ErrorDetailsPigeon) {
+    } else if (value is ECommerceScreenPigeon) {
       buffer.putUint8(139);
       writeValue(buffer, value.encode());
     } else if (value is ErrorDetailsPigeon) {
       buffer.putUint8(140);
       writeValue(buffer, value.encode());
-    } else if (value is ReceiptPigeon) {
+    } else if (value is ErrorDetailsPigeon) {
       buffer.putUint8(141);
       writeValue(buffer, value.encode());
-    } else if (value is RevenuePigeon) {
+    } else if (value is ReceiptPigeon) {
       buffer.putUint8(142);
       writeValue(buffer, value.encode());
-    } else if (value is StackTraceElementPigeon) {
+    } else if (value is RevenuePigeon) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    } else if (value is UserProfileAttributePigeon) {
+    } else if (value is StackTraceElementPigeon) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
-    } else if (value is UserProfilePigeon) {
+    } else if (value is UserProfileAttributePigeon) {
       buffer.putUint8(145);
+      writeValue(buffer, value.encode());
+    } else if (value is UserProfilePigeon) {
+      buffer.putUint8(146);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -1885,57 +1989,60 @@ class _ReporterPigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 128:
-        return ECommerceAmountPigeon.decode(readValue(buffer)!);
+        return AdRevenuePigeon.decode(readValue(buffer)!);
 
       case 129:
         return ECommerceAmountPigeon.decode(readValue(buffer)!);
 
       case 130:
-        return ECommerceCartItemPigeon.decode(readValue(buffer)!);
+        return ECommerceAmountPigeon.decode(readValue(buffer)!);
 
       case 131:
-        return ECommerceEventPigeon.decode(readValue(buffer)!);
+        return ECommerceCartItemPigeon.decode(readValue(buffer)!);
 
       case 132:
-        return ECommerceOrderPigeon.decode(readValue(buffer)!);
+        return ECommerceEventPigeon.decode(readValue(buffer)!);
 
       case 133:
-        return ECommercePricePigeon.decode(readValue(buffer)!);
+        return ECommerceOrderPigeon.decode(readValue(buffer)!);
 
       case 134:
         return ECommercePricePigeon.decode(readValue(buffer)!);
 
       case 135:
-        return ECommerceProductPigeon.decode(readValue(buffer)!);
+        return ECommercePricePigeon.decode(readValue(buffer)!);
 
       case 136:
         return ECommerceProductPigeon.decode(readValue(buffer)!);
 
       case 137:
-        return ECommerceReferrerPigeon.decode(readValue(buffer)!);
+        return ECommerceProductPigeon.decode(readValue(buffer)!);
 
       case 138:
-        return ECommerceScreenPigeon.decode(readValue(buffer)!);
+        return ECommerceReferrerPigeon.decode(readValue(buffer)!);
 
       case 139:
-        return ErrorDetailsPigeon.decode(readValue(buffer)!);
+        return ECommerceScreenPigeon.decode(readValue(buffer)!);
 
       case 140:
         return ErrorDetailsPigeon.decode(readValue(buffer)!);
 
       case 141:
-        return ReceiptPigeon.decode(readValue(buffer)!);
+        return ErrorDetailsPigeon.decode(readValue(buffer)!);
 
       case 142:
-        return RevenuePigeon.decode(readValue(buffer)!);
+        return ReceiptPigeon.decode(readValue(buffer)!);
 
       case 143:
-        return StackTraceElementPigeon.decode(readValue(buffer)!);
+        return RevenuePigeon.decode(readValue(buffer)!);
 
       case 144:
-        return UserProfileAttributePigeon.decode(readValue(buffer)!);
+        return StackTraceElementPigeon.decode(readValue(buffer)!);
 
       case 145:
+        return UserProfileAttributePigeon.decode(readValue(buffer)!);
+
+      case 146:
         return UserProfilePigeon.decode(readValue(buffer)!);
 
       default:
@@ -2261,6 +2368,31 @@ class ReporterPigeon {
         binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap = await channel
         .send(<Object?>[arg_apiKey, arg_event]) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> reportAdRevenue(
+      String arg_apiKey, AdRevenuePigeon arg_adRevenue) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.ReporterPigeon.reportAdRevenue', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap = await channel
+        .send(<Object?>[arg_apiKey, arg_adRevenue]) as Map<Object?, Object?>?;
     if (replyMap == null) {
       throw PlatformException(
         code: 'channel-error',

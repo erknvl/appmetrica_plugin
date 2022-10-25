@@ -12,6 +12,7 @@
 #import "YMMFECommerceConverter.h"
 #import "YMMFUserProfileConverter.h"
 #import "YMMFPluginErrorDetailsConverter.h"
+#import "YMMFAdRevenueConverter.h"
 
 @implementation YMMFReporterImplementation
 
@@ -113,6 +114,11 @@
 - (void)reportECommerceApiKey:(NSString *)apiKey event:(YMMFECommerceEventPigeon *)event error:(FlutterError **)flutterError
 {
     [[YMMYandexMetrica reporterForApiKey:apiKey] reportECommerce:[YMMFECommerceConverter convert:event] onFailure:nil];
+}
+
+- (void)reportAdRevenueApiKey:(NSString *)apiKey adRevenue:(YMMFAdRevenuePigeon *)adRevenue error:(FlutterError **)flutterError
+{
+    [[YMMYandexMetrica reporterForApiKey:apiKey] reportAdRevenue:[YMMFAdRevenueConverter convert:adRevenue] onFailure:nil];
 }
 
 @end
