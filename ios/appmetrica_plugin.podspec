@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*', 'AppMetricaPlugin/*.{h,m}'
   s.public_header_files = 'Classes/**/*.h', 'AppMetricaPlugin/*.h'
   s.dependency 'Flutter'
-  s.dependency 'YandexMobileMetrica', '~> 4.5'
+  s.dependency 'YandexMobileMetrica', '~> 4.5.2'
   s.static_framework = true
   s.platform = :ios, '11.0'
 
