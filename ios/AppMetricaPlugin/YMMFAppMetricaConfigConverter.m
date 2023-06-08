@@ -68,7 +68,9 @@
     if (pigeon.revenueAutoTracking != nil) {
         configuration.revenueAutoTrackingEnabled = pigeon.revenueAutoTracking.boolValue;
     }
-    configuration.appOpenTrackingEnabled = NO;
+    if (pigeon.appOpenTrackingEnabled != nil) {
+        configuration.appOpenTrackingEnabled = pigeon.appOpenTrackingEnabled.boolValue;
+    }
     return configuration;
 }
 

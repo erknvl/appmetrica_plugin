@@ -33,6 +33,7 @@ import 'preload_info.dart';
 /// * [errorEnvironment] — the environment of the application error in the form of a key-value pair. The environment is displayed in the crashes and errors report;
 /// * [userProfileID] — user profile ID;
 /// * [revenueAutoTracking] — indicates automatic collection and sending of information about In-App purchases. The default value is true.
+/// * [appOpenTrackingEnabled] — indicates automatic collection and sending of information about app open. The default value is true.
 class AppMetricaConfig {
   static final _converter = AppMetricaConfigConverterPigeon();
 
@@ -52,6 +53,7 @@ class AppMetricaConfig {
   final Map<String, String>? errorEnvironment;
   final String? userProfileID;
   final bool? revenueAutoTracking;
+  final bool? appOpenTrackingEnabled;
 
   /// Creates an AppMetrica library configuration object. [apiKey] is a required parameter.
   const AppMetricaConfig(
@@ -71,6 +73,7 @@ class AppMetricaConfig {
     this.errorEnvironment,
     this.userProfileID,
     this.revenueAutoTracking,
+    this.appOpenTrackingEnabled,
   });
 
   Future<String> toJson() => _converter.toJson(toPigeon());

@@ -35,6 +35,7 @@ class ActivationCompleter {
 
   Future<dynamic> complete(dynamic value) {
     _startFirstAutoTrackedSession(config.sessionsAutoTracking);
+    _reportAutoTrackedAppOpen(config.appOpenTrackingEnabled);
     ActivationConfigHolder.lastActivationConfig = config;
     return Future.value(value);
   }
@@ -51,6 +52,18 @@ class ActivationCompleter {
       return Future.value();
     } else {
       return AppMetricaPigeon().handlePluginInitFinished();
+    }
+  }
+
+  Future<void> _reportAutoTrackedAppOpen(bool? appOpenTrackingEnabled) {
+    if (ActivationConfigHolder.activated || false == appOpenTrackingEnabled) {
+      return Future.value();
+    } else {
+      return InitialDeepLinkHolderPigeon()
+          .getInitialDeeplink()
+          .then((value) => {
+                if (value != null) {AppMetricaPigeon().reportAppOpen(value)}
+              });
     }
   }
 }

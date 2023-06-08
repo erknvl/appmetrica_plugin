@@ -18,30 +18,38 @@ import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 class AppMetricaPlugin: FlutterPlugin, ActivityAware {
 
     private lateinit var implementation: AppMetricaImplementation
+    private lateinit var deeplinkHolder: InitialDeepLinkHolderImpl
 
-  override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-      implementation = AppMetricaImplementation(flutterPluginBinding.applicationContext)
-      Pigeon.AppMetricaPigeon.setup(flutterPluginBinding.binaryMessenger, implementation)
-      Pigeon.ReporterPigeon.setup(flutterPluginBinding.binaryMessenger, Reporter(flutterPluginBinding.applicationContext))
-      Pigeon.AppMetricaConfigConverterPigeon.setup(flutterPluginBinding.binaryMessenger, AppMetricaConfigConverterImpl())
-  }
+    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        implementation = AppMetricaImplementation(flutterPluginBinding.applicationContext)
+        deeplinkHolder = InitialDeepLinkHolderImpl()
 
-  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-  }
+        Pigeon.AppMetricaPigeon.setup(flutterPluginBinding.binaryMessenger, implementation)
+        Pigeon.ReporterPigeon.setup(flutterPluginBinding.binaryMessenger, Reporter(flutterPluginBinding.applicationContext))
+        Pigeon.AppMetricaConfigConverterPigeon.setup(flutterPluginBinding.binaryMessenger, AppMetricaConfigConverterImpl())
+        Pigeon.InitialDeepLinkHolderPigeon.setup(flutterPluginBinding.binaryMessenger, deeplinkHolder)
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         implementation.activity = binding.activity
+        deeplinkHolder.activity = binding.activity
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
         implementation.activity = null
+        deeplinkHolder.activity = null
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         implementation.activity = binding.activity
+        deeplinkHolder.activity = binding.activity
     }
 
     override fun onDetachedFromActivity() {
         implementation.activity = null
+        deeplinkHolder.activity = null
     }
 }

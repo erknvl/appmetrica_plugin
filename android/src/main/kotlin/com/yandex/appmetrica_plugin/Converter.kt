@@ -63,7 +63,7 @@ internal fun Pigeon.AppMetricaConfigPigeon.toNative() = YandexMetricaConfig.newC
         errorEnvironment?.forEach { (key, value) -> withErrorEnvironmentValue(key, value) }
         userProfileID?.let(::withUserProfileID)
         revenueAutoTracking?.let(::withRevenueAutoTrackingEnabled)
-        withAppOpenTrackingEnabled(false)
+        appOpenTrackingEnabled?.let(::withAppOpenTrackingEnabled)
     }.build()
 
 internal fun Pigeon.LocationPigeon.toNative() = Location(provider).also { output ->

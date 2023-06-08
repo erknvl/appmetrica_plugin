@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'appmetrica_plugin'
-  s.version          = '1.1.0'
+  s.version          = '1.2.0'
   s.summary          = 'AppMetrica SDK for Flutter'
   s.homepage         = 'https://appmetrica.yandex.com/'
   s.license          = { :type => 'PROPRIETARY', :file => '../LICENSE' }
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*', 'AppMetricaPlugin/*.{h,m}'
   s.public_header_files = 'Classes/**/*.h', 'AppMetricaPlugin/*.h'
   s.dependency 'Flutter'
-  s.dependency 'YandexMobileMetrica', '~> 4.5.0'
+  s.dependency 'YandexMobileMetrica', '~> 4.5'
   s.static_framework = true
   s.platform = :ios, '11.0'
 

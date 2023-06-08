@@ -20,7 +20,7 @@ In your flutter project add the following dependency:
 ```
 dependencies:
   ...
-  appmetrica_plugin: ^1.0.1
+  appmetrica_plugin: ^1.2.0
 ```
 
 Activate library using `AppMetrica.activate` with your API Key
